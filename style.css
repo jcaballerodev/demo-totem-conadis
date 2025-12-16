@@ -1,0 +1,244 @@
+/* Reseteo básico */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+
+body { 
+    background-color: #f0f2f5; 
+    display: flex; flex-direction: column; align-items: center; 
+    min-height: 100vh; padding-top: 20px; padding-bottom: 20px; 
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.interactive-container {
+    position: relative; 
+    width: 100%; max-width: 500px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border-radius: 8px; overflow: hidden; background-color: white;
+}
+
+#main-image { width: 100%; height: auto; display: block; transition: opacity 0.3s ease; }
+
+/* --- CAPAS DE INTERACCIÓN (OVERLAYS) --- */
+.overlay-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;
+}
+
+.hotspot {
+    position: absolute; display: block;
+    color: transparent; background-color: transparent; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Debugging: Descomenta esto si quieres ver dónde están las cajas */
+/* .hotspot { border: 1px solid rgba(255,0,0,0.5); } */
+
+/* --- POSICIONES: MENÚ PRINCIPAL (image_0.png) --- */
+.link-salud { top: 31%; left: 1.5%; width: 97%; height: 9%; }
+.link-educacion { top: 41.5%; left: 1.5%; width: 97%; height: 9%; }
+.link-empleo { top: 52%; left: 1.5%; width: 97%; height: 9%; }
+.link-proteccion { top: 62.5%; left: 1.5%; width: 97%; height: 9%; }
+.link-justicia { top: 73%; left: 1.5%; width: 97%; height: 9%; }
+.link-canales { top: 83.5%; left: 1.5%; width: 97%; height: 9%; }
+
+/* --- POSICIONES: SALUD (image_1.png) --- [CORREGIDO] */
+/* 1. Orientación: Bajamos de 39% a 43% */
+.option-salud-1 { top: 42%; left: 2%; width: 60%; height: 9%; } 
+
+/* 2. Certificación: Bajamos de 49% a 54% */
+.option-salud-2 { top: 53%; left: 2%; width: 60%; height: 9%; } 
+
+/* 3. Rehabilitación: Bajamos de 59% a 65% */
+.option-salud-3 { top: 64%; left: 2%; width: 60%; height: 9%; }
+.hotspot:hover { background-color: rgba(0, 0, 0, 0.05); }
+
+/* --- POSICIONES: EDUCACIÓN (image_2.png) --- */
+
+/* Botón rojo grande "INFÓRMATE" al pie de la imagen */
+.option-educacion-btn { 
+    top: 90%;       /* Ubicado en la parte inferior */
+    left: 22%;      /* Centrado horizontalmente (aprox) */
+    width: 56%;     /* Ancho del botón rojo */
+    height: 10%;    /* Altura del botón */
+}
+
+/* --- POSICIONES: EMPLEO (image_3.png) --- */
+
+/* Icono Maletín Amarillo (Ubicado a la izquierda, media altura) */
+.option-empleo-maletin { 
+    top: 36%;       
+    left: 8%;       
+    width: 30%;     
+    height: 16%;    
+}
+
+/* Icono Silla de Ruedas Roja (Ubicado abajo a la izquierda) */
+.option-empleo-silla { 
+    top: 65%;       
+    left: 8%;       
+    width: 25%;     
+    height: 16%;    
+}
+
+/* --- POSICIONES: PROTECCIÓN SOCIAL (image_4.png) --- */
+
+/* Botón Izquierdo: Programas Sociales */
+.option-proteccion-programas { 
+    top: 53%; 
+    left: 6%; 
+    width: 35%; 
+    height: 11%; 
+}
+
+/* Botón Derecho Superior: Bono de Vivienda */
+.option-proteccion-bono { 
+    top: 76%; 
+    left: 53%; 
+    width: 41%; 
+    height: 11%; 
+}
+
+/* Botón Derecho Inferior: Identidad RENIEC */
+.option-proteccion-reniec { 
+    top: 89%; 
+    left: 55%; 
+    width: 39%; 
+    height: 9%; 
+}
+
+/* --- POSICIONES: ACCESO A LA JUSTICIA (image_5.png) --- */
+
+/* Botón Amarillo Superior: Asesoría Legal */
+.option-justicia-asesoria { 
+    top: 66%; 
+    left: 5%; 
+    width: 42%; 
+    height: 11%; 
+}
+
+/* Botón Amarillo Inferior: Carnet del CONADIS */
+.option-justicia-carnet { 
+    top: 79%; 
+    left: 5%; 
+    width: 42%; 
+    height: 11%; 
+}
+
+
+/* --- VENTANA FLOTANTE (MODAL) --- */
+.modal {
+    position: absolute; /* Dentro del contenedor */
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro semitransparente */
+    display: flex; justify-content: center; align-items: center;
+    z-index: 100; /* Encima de todo */
+    opacity: 0; animation: fadeIn 0.3s forwards; /* Animación de entrada */
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 85%;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+    border-top: 5px solid #D92D27; /* Borde rojo institucional */
+}
+
+#modal-text {
+    font-size: 1.1rem; color: #333; line-height: 1.5;
+}
+
+#close-modal {
+    position: absolute; top: 5px; right: 15px;
+    color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer;
+}
+#close-modal:hover { color: #D92D27; }
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* --- BOTÓN VOLVER --- */
+.controls { 
+    width: 100%; max-width: 500px; padding-top: 20px; 
+    display: flex; justify-content: center; 
+}
+
+#back-button { 
+    padding: 15px 40px; background-color: #333; color: white; 
+    border: none; border-radius: 30px; cursor: pointer; 
+    font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+#back-button:hover { background-color: #D92D27; transform: translateY(-2px); }
+
+.hidden { display: none !important; }
+
+/* ... código anterior ... */
+
+/* --- BOTÓN DE SONIDO --- */
+.sound-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #D92D27; /* Rojo institucional */
+    color: white;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 200; /* Por encima de todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.sound-btn:hover {
+    background-color: #333;
+    transform: scale(1.1);
+}
+
+.sound-btn.muted {
+    background-color: #999; /* Gris cuando está silenciado */
+}
+
+/* ... (MANTENER TODO EL CÓDIGO CSS ANTERIOR IGUAL) ... */
+
+/* --- BOTONES FLOTANTES --- */
+.sound-btn {
+    position: fixed;
+    bottom: 20px; /* Botón de música abajo */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #D92D27; 
+    color: white;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 200; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, background-color 0.2s;
+	
+	
+}
+
+/* NUEVO: Botón de voz, ubicado encima del de música */
+.voice-btn {
+    bottom: 90px; /* 20px + 60px altura + 10px margen */
+    background-color: #333; /* Color diferente para distinguir (Gris oscuro) */
+}
+
+.sound-btn:hover, .voice-btn:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+.sound-btn.muted, .voice-btn.muted {
+    background-color: #999; /* Gris claro cuando está desactivado */
+}
