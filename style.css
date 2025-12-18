@@ -286,7 +286,7 @@ body {
 
 /* 1. Botón Ubícanos (Icono Azul) */
 .btn-ra-ubicanos { 
-    top: 33.5%; 
+    top: 33.7%; 
     left: 8%; 
     width: 84%; 
     height: 10%; 
@@ -294,7 +294,7 @@ body {
 
 /* 2. Botón Niveles de Atención (Icono Foco Amarillo) */
 .btn-ra-niveles { 
-    top: 45.5%; 
+    top: 45.6%; 
     left: 8%; 
     width: 84%; 
     height: 10%; 
@@ -302,7 +302,7 @@ body {
 
 /* 3. Botón Ejes Temáticos (Icono Gráfico) */
 .btn-ra-ejes { 
-    top: 57.9%; 
+    top: 58%; 
     left: 8%; 
     width: 84%; 
     height: 10%; 
@@ -338,12 +338,12 @@ body {
 
 /* 4. Protección Social (Botón Rojo con Personas) */
 .link-proteccion { 
-    top: 71%; left: 5%; width: 90%; height: 10%; 
+    top: 70%; left: 5%; width: 90%; height: 10%; 
 }
 
 /* 5. Acceso a Justicia (Botón Rojo con Balanza) */
 .link-justicia { 
-    top: 82%; left: 5%; width: 90%; height: 10%; 
+    top: 81%; left: 5%; width: 90%; height: 10%; 
 }
 
 /* (Eliminada la clase .link-canales) */
