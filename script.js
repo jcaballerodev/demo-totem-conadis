@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const registro1Filename = 'registro_1.png';
     const registro2Filename = 'registro_2.png';
     const registro3Filename = 'registro_3.png';
+	const reniecFilename = 'reniecminjusdh.png';
     
     const bgMusicVolume = 0.2; 
     const bgMusicDucking = 0.1; 
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'image_3.png': "Empleo y Oportunidades.",
         'image_4.png': "Protección Social.",
         'image_5.png': "Acceso a la Justicia.",
-        'image_6.png': "Canales de Atención."
+        'image_6.png': "Canales de Atención.",
+		'reniecminjusdh.png': "Información sobre RENIEC y Defensoría Pública."
     };
 
     // Secuencia Demo
@@ -76,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const redAliviaOverlay = document.getElementById('red-alivia-overlay');
     const ejesOverlay = document.getElementById('ejes-overlay');
     const saludOverlay = document.getElementById('salud-overlay');
+	const empleoOverlay = document.getElementById('empleo-overlay');
+	const proteccionOverlay = document.getElementById('proteccion-overlay');
+	const justiciaOverlay = document.getElementById('justicia-overlay');
     // const educacionOverlay = document.getElementById('educacion-overlay'); // Ya no se usa
     
     const incluyeme1Overlay = document.getElementById('incluyeme1-overlay');
@@ -231,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (currentImage === registro2Filename) { if(registro2Overlay) registro2Overlay.classList.remove('hidden'); }
         else if (currentImage === registro3Filename) { if(registro3Overlay) registro3Overlay.classList.remove('hidden'); }
         else if (currentImage === 'image_1.png') { if(saludOverlay) saludOverlay.classList.remove('hidden'); }
+		else if (currentImage === 'image_3.png') { if(empleoOverlay) empleoOverlay.classList.remove('hidden');}
+		else if (currentImage === 'image_4.png') { if(proteccionOverlay) proteccionOverlay.classList.remove('hidden');}
+		else if (currentImage === 'image_5.png') { if(justiciaOverlay) justiciaOverlay.classList.remove('hidden'); }
     }
 
     // Hotspots
@@ -252,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentSrc = mainImage.src.split('/').pop();
         if (currentSrc === ubicanosFilename || currentSrc === nivelesFilename) { navigateToSection(redAliviaFilename); }
         else if (currentSrc === 'image_6.png') { navigateToSection(redAliviaFilename); }
-        else if (currentSrc === redAliviaFilename || currentSrc === cetproFilename || currentSrc === incluyeme1Filename || currentSrc === registro1Filename) { backToIntro(); }
+        else if (currentSrc === redAliviaFilename || currentSrc === incluyeme1Filename || currentSrc === registro1Filename || currentSrc === reniecFilename) { backToIntro(); }
         else if (currentSrc === incluyeme2Filename) navigateToSection(incluyeme1Filename);
         else if (currentSrc === registro2Filename) navigateToSection(registro1Filename);
         else if (currentSrc === registro3Filename) navigateToSection(registro2Filename);

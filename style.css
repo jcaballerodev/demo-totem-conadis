@@ -274,6 +274,14 @@ body {
     height: 10.5%;
 }
 
+/* 6. Botón RENIEC / Defensoría (Sexta Barra - Parte inferior) */
+.option-start-reniec {
+    top: 73.2%;   /* Calculado para estar justo debajo del botón de Registro */
+    left: 7%;
+    width: 85%;
+    height: 10.5%;
+}
+
 /* --- POSICIONES: RED ALIVIA (red_alivia.png) ACTUALIZADO --- */
 
 /* 1. Botón Ubícanos (Icono Azul) */
@@ -307,6 +315,9 @@ body {
     width: 84%; 
     height: 10%; 
 }
+
+
+
 /* --- POSICIONES: EJES TEMÁTICOS (ejes_tematicos.png) ACTUALIZADO --- */
 /* 5 Botones: Salud, Educación, Empleo, Protección, Justicia */
 
@@ -360,24 +371,86 @@ body {
 /* Botón "Siguiente" en incluyeme_1.png */
 /* He configurado una zona en la esquina inferior derecha. 
    Ajusta estos valores si tu diseño tiene la flecha en otro lado. */
+/* --- POSICIONES: INCLÚYEME SOY CAPAZ --- */
+
+/* Botón "Siguiente" VISIBLE en incluyeme_1.png */
 .btn-incluyeme-next {
-    top: 80%;       /* Altura */
-    left: 75%;      /* Posición horizontal */
-    width: 20%;     /* Ancho de la zona activa */
-    height: 15%;    /* Alto de la zona activa */
+    top: 93%;       /* Altura */
+    left: 88%;      /* Posición horizontal */
+    width: 10%;     /* Ancho */
+    height: 5%;    /* Alto */
     
-    /* Descomenta la siguiente línea temporalmente para ver dónde está el botón */
-    /* border: 2px solid red; */
+    /* ESTILOS VISUALES */
+    /*background-color: white;*/   /* Fondo blanco */
+    /*border: 2px solid #D92D27;*/ /* Borde rojo */
+    border-radius: 50px;       /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    
+    /* Centrado del contenido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Estilo del Ícono (>) */
+    color: #D92D27 !important; /* Color ROJO */
+    font-size: 30px;           /* Tamaño grande */
+    font-weight: bold;
+    /*font-family: monospace; */   /* Para que el '>' se vea más geométrico */
+    z-index: 20;
+    transition: transform 0.2s, background-color 0.2s;
+    /*text-decoration: none; */    /* Quita subrayados si los hubiera */
+}
+
+/* Insertamos el caracter mayor que '>' */
+.btn-incluyeme-next::after {
+    content: '>'; 
+}
+
+/* Efecto al pasar el mouse */
+.btn-incluyeme-next:hover {
+    background-color: #eee; /* Fondo rojo */
+    transform: scale(1.1);  /* Crece un poco */
+    border-color: #D92D27;
 }
 
 /* --- POSICIONES: REGISTRO NACIONAL --- */
 
 /* Botón "Siguiente" genérico para las láminas registro_1 y registro_2 */
+
+/* Botón "Siguiente" VISIBLE para las láminas registro_1 y registro_2 */
 .btn-registro-next {
-    top: 80%;       /* Altura */
-    left: 75%;      /* Derecha */
-    width: 20%;     /* Ancho */
-    height: 15%;    /* Alto */
+    top: 93%;           /* Ajuste de posición vertical */
+    left: 88%;          /* Ajuste de posición horizontal */
+    width: 10%;         /* Ancho del botón */
+    height: 5%;        /* Alto del botón */
     
-    /* border: 2px solid blue;  <-- Descomenta para probar la posición */
+    /* ESTILOS VISUALES (Nuevo) */
+    /*background-color: #D92D27; /* Rojo institucional */
+    /*border: 2px solid white;*/
+    border-radius: 50px;       /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4); /* Sombra para profundidad */
+    
+    /* Centrado del ícono */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Propiedades del ícono (Flecha) */
+    color: #D92D27 !important;   /* !important para sobreescribir la transparencia del hotspot */
+    font-size: 30px;           /* Tamaño de la flecha */
+    font-weight: bold;
+    z-index: 20;               /* Asegura que esté encima */
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+/* Agregamos la flecha mediante CSS sin tocar el HTML */
+.btn-registro-next::after {
+    content: '>'; /* Código de la flecha */
+}
+
+/* Efecto al pasar el mouse */
+.btn-registro-next:hover {
+    background-color: #eee; /* Cambia a gris oscuro */
+    transform: scale(1.1);  /* Crece un poco */
+    border-color: #D92D27;
 }
