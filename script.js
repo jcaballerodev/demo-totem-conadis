@@ -1,214 +1,206 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- CONFIGURACIÓN ---
-    const timeoutInSeconds = 30; // Tiempo para volver al menú
-    const demoSlideDuration = 8000; // 8 Segundos por pantalla
+    // ==========================================
+    // 1. CONFIGURACIÓN
+    // ==========================================
+    const timeoutInSeconds = 30; 
+    const demoSlideDuration = 8000; 
     const imageFolderPath = 'images/';
-    const menuImageFilename = 'image_0.png'; 
-    const bgMusicVolume = 0.3; 
-    const bgMusicDucking = 0.1; // Volumen bajo cuando habla la voz
     
-    // Guiones de voz para las diapositivas principales
+    // Nombres de archivo
+    const introFilename = 'intro.png';
+    const redAliviaFilename = 'red_alivia.png';
+    const ubicanosFilename = 'ubicanos.png'; 
+    const nivelesFilename = 'niveles_atencion.png';
+    const cetproFilename = 'cetpro_asz.png';
+    const ejesFilename = 'ejes_tematicos.png';
+    
+    // Secuencias
+    const incluyeme1Filename = 'incluyeme_1.png';
+    const incluyeme2Filename = 'incluyeme_2.png';
+    
+    const registro1Filename = 'registro_1.png';
+    const registro2Filename = 'registro_2.png';
+    const registro3Filename = 'registro_3.png';
+    
+    const bgMusicVolume = 0.2; 
+    const bgMusicDucking = 0.1; 
+    
     const voiceScripts = {
-        'image_0.png': "Bienvenido a la Red Alivia. Toque la pantalla para interactuar.",
+        'intro.png': "Bienvenido al Módulo Digital del CONADIS. Por favor, seleccione una opción.",
+        'red_alivia.png': "Estás en Red Alivia Perú. Selecciona: Ubícanos, Niveles de Atención, Ejes Temáticos o Canales de Atención.",
+        'niveles_atencion.png': "Niveles de Atención. Contamos con atención primaria y especializada.",
+        'ubicanos.png': "La ubicación de nuestra sede central en Lima Metropolitana es Av Arequipa 375 Cercado de Lima, y comunícate con nosotros al número 016305170 - Opción 1.",
+        'cetpro_asz.png': "En el área de Educación, el CONADIS a través de su CETPRO Alcides Salomón Zorrilla realiza cursos de capacitación gratuita a personas con discapacidad en las modalidades virtual y presencial.",
+        'ejes_tematicos.png': "Ejes Temáticos. Selecciona: Salud, Educación, Empleo, Protección Social o Acceso a la Justicia.",
+        'incluyeme_1.png': "Estrategia Inclúyeme Soy Capaz. Promoviendo la inclusión social y productiva.",
+        'incluyeme_2.png': "Continuación de la estrategia Inclúyeme Soy Capaz.",
+        'registro_1.png': "Registro Nacional de la Persona con Discapacidad. Pasos para la inscripción.",
+        'registro_2.png': "Requisitos y documentación necesaria para el registro.",
+        'registro_3.png': "Beneficios de estar inscrito en el Registro Nacional del CONADIS.",
         'image_1.png': "Salud Accesible.",
-        'image_2.png': "Educación Inclusiva.",
         'image_3.png': "Empleo y Oportunidades.",
         'image_4.png': "Protección Social.",
         'image_5.png': "Acceso a la Justicia.",
         'image_6.png': "Canales de Atención."
     };
 
-    // Secuencia del carrusel
+    // Secuencia Demo
     const demoSequence = [
-        'image_0.png', 'image_1.png', 'image_2.png', 
-        'image_3.png', 'image_4.png', 'image_5.png', 'image_6.png'
+        'intro.png', 
+        'red_alivia.png',
+        'ubicanos.png',     
+        'cetpro_asz.png', 
+        'incluyeme_1.png', 'incluyeme_2.png',
+        'registro_1.png', 'registro_2.png', 'registro_3.png',
+        'ejes_tematicos.png', 
+        'image_1.png', 'image_3.png'
     ];
 
-    // --- VARIABLES DE ESTADO ---
+    // Variables de estado
     let inactivityTimeout;
-    let demoInterval;
+    let demoInterval = null; 
     let currentDemoIndex = 0;
     let isUserInteracting = false; 
-    let isVoiceEnabled = true; // Voz activada por defecto
+    let isVoiceEnabled = true;
 
-    // --- REFERENCIAS DOM ---
+    // Referencias DOM
     const mainImage = document.getElementById('main-image');
     const backButton = document.getElementById('back-button');
     const audio = document.getElementById('bg-music');
     const soundBtn = document.getElementById('sound-toggle');
     const voiceBtn = document.getElementById('voice-toggle');
+    const carouselBtn = document.getElementById('carousel-toggle');
     
-    // Capas y Modales
-    const menuOverlay = document.getElementById('menu-overlay');
+    // Overlays
+    const introOverlay = document.getElementById('intro-overlay');
+    const redAliviaOverlay = document.getElementById('red-alivia-overlay');
+    const ejesOverlay = document.getElementById('ejes-overlay');
     const saludOverlay = document.getElementById('salud-overlay');
-    const educacionOverlay = document.getElementById('educacion-overlay');
-    const empleoOverlay = document.getElementById('empleo-overlay');
-    const proteccionOverlay = document.getElementById('proteccion-overlay');
-    const justiciaOverlay = document.getElementById('justicia-overlay');
+    // const educacionOverlay = document.getElementById('educacion-overlay'); // Ya no se usa
+    
+    const incluyeme1Overlay = document.getElementById('incluyeme1-overlay');
+    const incluyeme2Overlay = document.getElementById('incluyeme2-overlay');
+    
+    const registro1Overlay = document.getElementById('registro1-overlay');
+    const registro2Overlay = document.getElementById('registro2-overlay');
+    const registro3Overlay = document.getElementById('registro3-overlay');
+    
     const modal = document.getElementById('info-modal');
     const modalText = document.getElementById('modal-text');
     const closeModalBtn = document.getElementById('close-modal');
 
-    // --- LÓGICA DE AUDIO (Música) ---
+    // --- AUDIO & VOZ ---
     audio.volume = bgMusicVolume; 
-
     function toggleMusic() {
-        if (audio.paused) {
-            audio.play().then(() => {
-                soundBtn.textContent = '🔊';
-                soundBtn.classList.remove('muted');
-            }).catch(e => console.log(e));
-        } else {
-            audio.pause();
-            soundBtn.textContent = '🔇';
-            soundBtn.classList.add('muted');
-        }
+        if (audio.paused) { audio.play().then(()=>{soundBtn.textContent='🔊';soundBtn.classList.remove('muted');}).catch(console.log); } 
+        else { audio.pause(); soundBtn.textContent='🔇'; soundBtn.classList.add('muted'); }
     }
-
-    function attemptAudioPlay() {
-        if (audio.paused && !soundBtn.classList.contains('muted')) {
-            audio.play().then(() => {
-                soundBtn.textContent = '🔊';
-                soundBtn.classList.remove('muted');
-            }).catch(() => console.log("Autoplay bloqueado."));
-        }
-    }
-
-    // --- LÓGICA DE VOZ (Universal) ---
-    
-    // Función auxiliar para limpiar HTML (quitar <b>, <br>, etc. para que lea bien)
-    function stripHtml(html) {
-        let tempDiv = document.createElement("div");
-        // Reemplazar <br> con puntos para que haga pausas
-        let processedHtml = html.replace(/<br\s*\/?>/gi, '. '); 
-        tempDiv.innerHTML = processedHtml;
-        return tempDiv.textContent || tempDiv.innerText || "";
-    }
-
+    function attemptAudioPlay() { if(audio.paused && !soundBtn.classList.contains('muted')) audio.play().catch(()=>{}); }
+    function stripHtml(html) { let t=document.createElement("div"); t.innerHTML=html.replace(/<br\s*\/?>/gi, '. '); return t.textContent||""; }
     function speak(text) {
-        // 1. Validaciones
         if (!isVoiceEnabled || !text) return;
-
-        // 2. Detener cualquier habla anterior
         window.speechSynthesis.cancel();
-
-        // 3. Configurar la frase
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'es-US'; 
-        utterance.rate = 1.0; 
-
-        // 4. Manejar el volumen de la música (Ducking)
-        utterance.onstart = () => {
-            if (!audio.paused) {
-                // Transición suave manual (opcional) o cambio directo
-                audio.volume = bgMusicDucking; 
-            }
-        };
-
-        utterance.onend = () => {
-            if (!audio.paused) {
-                audio.volume = bgMusicVolume;
-            }
-        };
-
-        // 5. Hablar
+        utterance.onstart = () => { if (!audio.paused) audio.volume = bgMusicDucking; };
+        utterance.onend = () => { if (!audio.paused) audio.volume = bgMusicVolume; };
         window.speechSynthesis.speak(utterance);
     }
-
-    // Detener la voz (para botón y cerrar modal)
-    function stopSpeaking() {
-        window.speechSynthesis.cancel();
-        if (!audio.paused) audio.volume = bgMusicVolume;
-    }
-
+    function stopSpeaking() { window.speechSynthesis.cancel(); if (!audio.paused) audio.volume = bgMusicVolume; }
     function toggleVoice() {
         isVoiceEnabled = !isVoiceEnabled;
-        
-        if (isVoiceEnabled) {
-            voiceBtn.textContent = '🗣️';
-            voiceBtn.classList.remove('muted');
-            // Confirmación auditiva leve o leer lo actual
-            if(!modal.classList.contains('hidden')) {
-                speak(stripHtml(modalText.innerHTML));
-            } else {
-                // Leer título de la imagen actual
-                let currentImg = mainImage.src.split('/').pop();
-                if(voiceScripts[currentImg]) speak(voiceScripts[currentImg]);
-            }
-        } else {
-            voiceBtn.textContent = '😶';
-            voiceBtn.classList.add('muted');
-            stopSpeaking();
+        voiceBtn.textContent = isVoiceEnabled ? '🗣️' : '😶';
+        voiceBtn.classList.toggle('muted', !isVoiceEnabled);
+        if(!isVoiceEnabled) stopSpeaking();
+        else {
+             if(!modal.classList.contains('hidden')) speak(stripHtml(modalText.innerHTML));
+             else { let cur = mainImage.src.split('/').pop(); if(voiceScripts[cur]) speak(voiceScripts[cur]); }
         }
     }
 
-    // --- LISTENERS DE BOTONES ---
-    soundBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); 
-        userInteractionDetected(); 
-        toggleMusic();
-    });
+    // ==========================================
+    // 2. LÓGICA DEL CARRUSEL
+    // ==========================================
+    
+    function updateCarouselButtonState(isRunning) {
+        if (isRunning) { 
+            carouselBtn.textContent = '⏸️'; // Icono Pausa
+            carouselBtn.classList.remove('paused'); 
+        } else { 
+            carouselBtn.textContent = '▶️'; // Icono Play
+            carouselBtn.classList.add('paused'); 
+        }
+    }
 
-    voiceBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userInteractionDetected();
-        toggleVoice();
-    });
-
-    // --- MODO DEMO ---
     function startDemoMode() {
         if (demoInterval || isUserInteracting) return;
-        console.log("Iniciando Modo Demo (8s)...");
+        
+        console.log("Iniciando Carrusel...");
+        updateCarouselButtonState(true);
         
         const nextSlide = () => {
-            const targetImage = demoSequence[currentDemoIndex];
-            performVisualNavigation(targetImage);
-            currentDemoIndex++;
-            if (currentDemoIndex >= demoSequence.length) currentDemoIndex = 0; 
+            const target = demoSequence[currentDemoIndex];
+            performVisualNavigation(target);
+            currentDemoIndex = (currentDemoIndex + 1) % demoSequence.length;
         };
-
         nextSlide(); 
         demoInterval = setInterval(nextSlide, demoSlideDuration);
     }
 
     function stopDemoMode() {
-        if (demoInterval) {
-            clearInterval(demoInterval);
-            demoInterval = null;
+        if (demoInterval) { 
+            clearInterval(demoInterval); 
+            demoInterval = null; 
+            updateCarouselButtonState(false); 
+            console.log("Carrusel Detenido.");
         }
     }
 
-    // --- DETECCIÓN INTERACCIÓN ---
-    function userInteractionDetected() {
-        stopDemoMode();
-        isUserInteracting = true;
-        resetInactivityTimer();
-        attemptAudioPlay();
+    function toggleCarousel() {
+        if (demoInterval) { 
+            stopDemoMode(); 
+            isUserInteracting = true; 
+            resetInactivityTimer(); 
+        } else { 
+            isUserInteracting = false; 
+            startDemoMode(); 
+        }
     }
 
-    document.addEventListener('click', userInteractionDetected);
-    document.addEventListener('touchstart', userInteractionDetected);
-
-    // --- TEMPORIZADORES ---
-    function startInactivityTimer() {
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(() => {
-            resetSystemToIdle();
-        }, timeoutInSeconds * 1000);
+    function userInteractionDetected() { 
+        stopDemoMode(); 
+        isUserInteracting = true; 
+        resetInactivityTimer(); 
+        attemptAudioPlay(); 
     }
 
-    function resetInactivityTimer() {
-        clearTimeout(inactivityTimeout);
-        startInactivityTimer();
-    }
-
-    function resetSystemToIdle() {
-        console.log("Reiniciando sistema...");
-        backToMenu(true); 
+    function resetSystemToIdle() { 
+        console.log("Tiempo de espera agotado. Volviendo a inicio...");
+        backToIntro(true); 
         isUserInteracting = false; 
-        currentDemoIndex = 0;      
-        setTimeout(() => startDemoMode(), 2000); 
+        currentDemoIndex = 0; 
+        stopDemoMode(); 
     }
+
+    // Temporizador
+    function startInactivityTimer() { 
+        clearTimeout(inactivityTimeout); 
+        inactivityTimeout = setTimeout(() => { resetSystemToIdle(); }, timeoutInSeconds * 1000); 
+    }
+    function resetInactivityTimer() { clearTimeout(inactivityTimeout); startInactivityTimer(); }
+
+    // Event Listeners Control
+    soundBtn.addEventListener('click', (e) => { e.stopPropagation(); userInteractionDetected(); toggleMusic(); });
+    voiceBtn.addEventListener('click', (e) => { e.stopPropagation(); userInteractionDetected(); toggleVoice(); });
+    
+    carouselBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        toggleCarousel(); 
+        attemptAudioPlay(); 
+    });
+
+    document.addEventListener('click', (e) => { if (!e.target.closest('.controls') && !e.target.closest('.sound-btn')) userInteractionDetected(); });
+    document.addEventListener('touchstart', userInteractionDetected);
 
     // --- NAVEGACIÓN ---
     function performVisualNavigation(targetFilename) {
@@ -216,106 +208,62 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             mainImage.src = imageFolderPath + targetFilename;
             updateOverlays(targetFilename);
+            if (modal.classList.contains('hidden') && voiceScripts[targetFilename]) speak(voiceScripts[targetFilename]);
             
-            // Hablar título de la sección (si el modal no está abierto)
-            if (modal.classList.contains('hidden') && voiceScripts[targetFilename]) {
-                speak(voiceScripts[targetFilename]);
-            }
-
-            if (targetFilename !== menuImageFilename) {
-                backButton.classList.remove('hidden');
-            } else {
-                backButton.classList.add('hidden');
-            }
+            if (targetFilename !== introFilename) backButton.classList.remove('hidden');
+            else backButton.classList.add('hidden');
             mainImage.style.opacity = '1';
         }, 200);
     }
+    function navigateToSection(f) { userInteractionDetected(); performVisualNavigation(f); window.scrollTo({top:0,behavior:'smooth'}); }
+    function backToIntro(auto) { if(!auto) userInteractionDetected(); modal.classList.add('hidden'); stopSpeaking(); performVisualNavigation(introFilename); }
 
-    function navigateToSection(targetFilename) {
-        userInteractionDetected(); 
-        performVisualNavigation(targetFilename);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function backToMenu(isAutomatic = false) { 
-        if (!isAutomatic) userInteractionDetected();
-        
-        // Al volver al menú, cerramos modal y callamos voz
-        modal.classList.add('hidden'); 
-        stopSpeaking(); 
-        
-        performVisualNavigation(menuImageFilename);
-    }
-
-    // --- CAPAS Y MODALES ---
+    // --- GESTIÓN DE CAPAS (OVERLAYS) ---
     function updateOverlays(currentImage) {
-        menuOverlay.classList.add('hidden');
-        saludOverlay.classList.add('hidden');
-        if (educacionOverlay) educacionOverlay.classList.add('hidden');
-        if (empleoOverlay) empleoOverlay.classList.add('hidden');
-        if (proteccionOverlay) proteccionOverlay.classList.add('hidden');
-        if (justiciaOverlay) justiciaOverlay.classList.add('hidden');
+        document.querySelectorAll('.overlay-layer').forEach(el => el.classList.add('hidden'));
 
-        if (currentImage === menuImageFilename) { menuOverlay.classList.remove('hidden'); } 
-        else if (currentImage === 'image_1.png') { saludOverlay.classList.remove('hidden'); }
-        else if (currentImage === 'image_2.png') { if (educacionOverlay) educacionOverlay.classList.remove('hidden'); }
-        else if (currentImage === 'image_3.png') { if (empleoOverlay) empleoOverlay.classList.remove('hidden'); }
-        else if (currentImage === 'image_4.png') { if (proteccionOverlay) proteccionOverlay.classList.remove('hidden'); }
-        else if (currentImage === 'image_5.png') { if (justiciaOverlay) justiciaOverlay.classList.remove('hidden'); }
+        if (currentImage === introFilename) { introOverlay.classList.remove('hidden'); }
+        else if (currentImage === redAliviaFilename) { if(redAliviaOverlay) redAliviaOverlay.classList.remove('hidden'); }
+        else if (currentImage === ejesFilename) { if(ejesOverlay) ejesOverlay.classList.remove('hidden'); }
+        else if (currentImage === incluyeme1Filename) { if(incluyeme1Overlay) incluyeme1Overlay.classList.remove('hidden'); }
+        else if (currentImage === incluyeme2Filename) { if(incluyeme2Overlay) incluyeme2Overlay.classList.remove('hidden'); }
+        else if (currentImage === registro1Filename) { if(registro1Overlay) registro1Overlay.classList.remove('hidden'); }
+        else if (currentImage === registro2Filename) { if(registro2Overlay) registro2Overlay.classList.remove('hidden'); }
+        else if (currentImage === registro3Filename) { if(registro3Overlay) registro3Overlay.classList.remove('hidden'); }
+        else if (currentImage === 'image_1.png') { if(saludOverlay) saludOverlay.classList.remove('hidden'); }
     }
 
-    document.querySelectorAll('#menu-overlay .hotspot').forEach(spot => {
+    // Hotspots
+    document.querySelectorAll('.hotspot').forEach(spot => {
         spot.addEventListener('click', (e) => {
             e.preventDefault();
-            navigateToSection(spot.getAttribute('data-target'));
+            if (spot.getAttribute('data-target')) navigateToSection(spot.getAttribute('data-target'));
+            else if (spot.getAttribute('data-info')) openModal(spot.getAttribute('data-info'));
         });
     });
 
-    const setupModalListeners = (overlay) => {
-        if (overlay) {
-            overlay.querySelectorAll('.hotspot').forEach(spot => {
-                spot.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    // Obtener texto HTML del atributo
-                    const infoHtml = spot.getAttribute('data-info');
-                    openModal(infoHtml);
-                });
-            });
-        }
-    };
-    setupModalListeners(saludOverlay);
-    setupModalListeners(educacionOverlay);
-    setupModalListeners(empleoOverlay);
-    setupModalListeners(proteccionOverlay);
-    setupModalListeners(justiciaOverlay);
+    // Modal
+    function openModal(h) { userInteractionDetected(); modalText.innerHTML=h; modal.classList.remove('hidden'); speak(stripHtml(h)); }
+    closeModalBtn.addEventListener('click', ()=>{modal.classList.add('hidden'); stopSpeaking();});
+    modal.addEventListener('click', (e)=>{if(e.target===modal){modal.classList.add('hidden'); stopSpeaking();}});
 
-    // --- FUNCIÓN ABRIR MODAL ACTUALIZADA ---
-    function openModal(htmlText) {
-        userInteractionDetected();
-        modalText.innerHTML = htmlText; // Mostrar texto visualmente (con negritas, etc)
-        modal.classList.remove('hidden');
-        
-        // Limpiar HTML y leer en voz alta
-        const cleanText = stripHtml(htmlText);
-        speak(cleanText);
-    }
-
-    closeModalBtn.addEventListener('click', () => { 
-        modal.classList.add('hidden');
-        stopSpeaking(); // Callar voz al cerrar
+    // --- BOTÓN VOLVER ---
+    backButton.addEventListener('click', () => {
+        const currentSrc = mainImage.src.split('/').pop();
+        if (currentSrc === ubicanosFilename || currentSrc === nivelesFilename) { navigateToSection(redAliviaFilename); }
+        else if (currentSrc === 'image_6.png') { navigateToSection(redAliviaFilename); }
+        else if (currentSrc === redAliviaFilename || currentSrc === cetproFilename || currentSrc === incluyeme1Filename || currentSrc === registro1Filename) { backToIntro(); }
+        else if (currentSrc === incluyeme2Filename) navigateToSection(incluyeme1Filename);
+        else if (currentSrc === registro2Filename) navigateToSection(registro1Filename);
+        else if (currentSrc === registro3Filename) navigateToSection(registro2Filename);
+        else if (currentSrc === ejesFilename) { navigateToSection(redAliviaFilename); }
+        else { navigateToSection(ejesFilename); }
     });
 
-    modal.addEventListener('click', (e) => { 
-        if (e.target === modal) {
-            modal.classList.add('hidden');
-            stopSpeaking(); // Callar voz al cerrar
-        }
-    });
-
-    backButton.addEventListener('click', () => backToMenu());
-
-    // --- INICIO ---
-    updateOverlays(menuImageFilename);
+    // --- INICIALIZACIÓN ---
+    updateOverlays(introFilename);
     attemptAudioPlay();
-    startDemoMode();
+    
+    // Configuramos el botón visualmente como "Play" (Pausado)
+    updateCarouselButtonState(false); 
 });

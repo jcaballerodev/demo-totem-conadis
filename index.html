@@ -10,64 +10,54 @@
 
     <main class="interactive-container">
         
-        <img id="main-image" src="images/image_0.png" alt="Contenido Red Alivia">
+        <img id="main-image" src="images/intro.png" alt="Portada Menú Principal">
 
-        <div id="menu-overlay" class="overlay-layer">
-            <a href="#" class="hotspot link-salud" data-target="image_1.png">Salud</a>
-            <a href="#" class="hotspot link-educacion" data-target="image_2.png">Educación</a>
-            <a href="#" class="hotspot link-empleo" data-target="image_3.png">Empleo</a>
-            <a href="#" class="hotspot link-proteccion" data-target="image_4.png">Protección Social</a>
-            <a href="#" class="hotspot link-justicia" data-target="image_5.png">Acceso a la Justicia</a>
-            <a href="#" class="hotspot link-canales" data-target="image_6.png">Canales de Atención</a>
-        </div>
 
-        <div id="salud-overlay" class="overlay-layer hidden">
-            <div class="hotspot option-salud-1" 
-                 data-info="Te informamos y guíamos sobre acceso a servicios de salud general y especializada en establecimientos del Minsa, EsSalud y gobiernos regionales.">
-            </div>
-            <div class="hotspot option-salud-2" 
-                 data-info="Te asesoramos sobre requisitos, trámites y centros autorizados para la obtención del Certificado de Discapacidad.">
-            </div>
-            <div class="hotspot option-salud-3" 
-                 data-info="Te orientamos para acceder a servicios de rehabilitación física y terapias complementarias en instituciones públicas.">
-            </div>
-        </div>
+		<div id="intro-overlay" class="overlay-layer">
+			<div class="hotspot option-start-conadis" data-info="El Consejo Nacional para la Integración de la Persona con Discapacidad (CONADIS) es el órgano especializado en cuestiones relativas a la discapacidad. Está constituido como un organismo público ejecutor adscrito al Ministerio de la Mujer y Poblaciones Vulnerables, con autonomía técnica, administrativa, de administración, económica y financiera.
+"></div>
+			
+			<a href="#" class="hotspot option-start-alivia" data-target="red_alivia.png"></a>
+			
+			<a href="#" class="hotspot option-start-incluyeme" data-target="incluyeme_1.png"></a>
+			
+			<a href="#" class="hotspot option-start-registro" data-target="registro_1.png"></a>
+		</div>
+		
+		<div id="registro1-overlay" class="overlay-layer hidden">
+			<a href="#" class="hotspot btn-registro-next" data-target="registro_2.png"></a>
+		</div>
 
-        <div id="educacion-overlay" class="overlay-layer hidden">
-            <div class="hotspot option-educacion-btn" 
-                 data-info="<b>Educación Inclusiva:</b> Te asesoramos sobre procesos de matrícula en educación básica, superior universitaria y técnico–productiva.<br><br><b>Capacitación Técnica:</b> Información sobre cursos gratuitos del CETPRO Alcides Salomón Zorrilla.">
-            </div>
-        </div>
+		<div id="registro2-overlay" class="overlay-layer hidden">
+			<a href="#" class="hotspot btn-registro-next" data-target="registro_3.png"></a>
+		</div>
 
-        <div id="empleo-overlay" class="overlay-layer hidden">
-            <div class="hotspot option-empleo-maletin" 
-                 data-info="<b>Bolsa de Trabajo:</b> Te orientamos sobre convocatorias laborales y la cuota de empleo para personas con discapacidad.">
-            </div>
-            <div class="hotspot option-empleo-silla" 
-                 data-info="<b>Emprendimiento:</b> Te asesoramos para iniciativas de autoempleo.">
-            </div>
-        </div>
-        
-        <div id="proteccion-overlay" class="overlay-layer hidden">
-            <div class="hotspot option-proteccion-programas" 
-                 data-info="<b>Programas Sociales:</b> Te orientamos para la afiliación y trámites de programas como Pensión Contigo y Pensión 65.">
-            </div>
-            <div class="hotspot option-proteccion-bono" 
-                 data-info="<b>Bono de Vivienda:</b> Información sobre la postulación a bonos del Estado como Techo Propio.">
-            </div>
-            <div class="hotspot option-proteccion-reniec" 
-                 data-info="<b>Identidad (RENIEC):</b> Orientación y atención para trámites de DNI.">
-            </div>
-        </div>
+		<div id="registro3-overlay" class="overlay-layer hidden"></div>
+		
+		<div id="incluyeme1-overlay" class="overlay-layer hidden">
+			<a href="#" class="hotspot btn-incluyeme-next" data-target="incluyeme_2.png"></a>
+		</div>
 
-        <div id="justicia-overlay" class="overlay-layer hidden">
-            <div class="hotspot option-justicia-asesoria" 
-                 data-info="<b>Asesoría Legal Gratuita:</b> Abogados especializados atienden casos de discriminación o violencia.">
-            </div>
-            <div class="hotspot option-justicia-carnet" 
-                 data-info="<b>Carnet del CONADIS:</b> Orientación y gestión del carnet de discapacidad.">
-            </div>
-        </div>
+		<div id="incluyeme2-overlay" class="overlay-layer hidden"> </div>
+
+		<div id="red-alivia-overlay" class="overlay-layer hidden">
+			<a href="#" class="hotspot btn-ra-ubicanos" data-target="ubicanos.png"></a>
+
+			<a href="#" class="hotspot btn-ra-niveles" data-target="niveles_atencion.png"></a>	
+			
+			<a href="#" class="hotspot btn-ra-ejes" data-target="ejes_tematicos.png"></a>
+			
+			<a href="#" class="hotspot btn-ra-canales" data-target="image_6.png"></a>
+		</div>
+
+		<div id="ejes-overlay" class="overlay-layer hidden">
+			<a href="#" class="hotspot link-salud" data-target="image_1.png"></a>
+			<a href="#" class="hotspot link-educacion" data-target="cetpro_asz.png"></a>
+			<a href="#" class="hotspot link-empleo" data-target="image_3.png"></a>
+			<a href="#" class="hotspot link-proteccion" data-target="image_4.png"></a>
+			<a href="#" class="hotspot link-justicia" data-target="image_5.png"></a>
+		</div>
+
 
         <div id="info-modal" class="modal hidden">
             <div class="modal-content">
@@ -79,20 +69,13 @@
     </main>
 
     <div class="controls">
-        <button id="back-button" class="hidden">⬅ Volver al Menú Principal</button>
+        <button id="back-button" class="hidden">⬅ Volver al Inicio</button>
     </div>
     
-    <audio id="bg-music" loop>
-        <source src="musica_fondo.mp3" type="audio/mpeg">
-    </audio>
-
-    <button id="voice-toggle" class="sound-btn voice-btn" title="Activar/Desactivar Voz">
-        🗣️
-    </button>
-
-    <button id="sound-toggle" class="sound-btn" title="Activar/Desactivar Música">
-        🔊
-    </button>
+    <audio id="bg-music" loop><source src="musica_fondo.mp3" type="audio/mpeg"></audio>
+	<button id="carousel-toggle" class="sound-btn carousel-btn">⏸️</button>
+    <button id="voice-toggle" class="sound-btn voice-btn">🗣️</button>
+    <button id="sound-toggle" class="sound-btn">🔊</button>
 
     <script src="script.js"></script>
 </body>

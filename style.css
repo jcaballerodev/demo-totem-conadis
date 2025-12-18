@@ -50,15 +50,8 @@ body {
 .option-salud-3 { top: 64%; left: 2%; width: 60%; height: 9%; }
 .hotspot:hover { background-color: rgba(0, 0, 0, 0.05); }
 
-/* --- POSICIONES: EDUCACIÓN (image_2.png) --- */
+/* --- POSICIONES: EDUCACIÓN (image_2.png) ELIMINADO--- */
 
-/* Botón rojo grande "INFÓRMATE" al pie de la imagen */
-.option-educacion-btn { 
-    top: 90%;       /* Ubicado en la parte inferior */
-    left: 22%;      /* Centrado horizontalmente (aprox) */
-    width: 56%;     /* Ancho del botón rojo */
-    height: 10%;    /* Altura del botón */
-}
 
 /* --- POSICIONES: EMPLEO (image_3.png) --- */
 
@@ -241,4 +234,150 @@ body {
 
 .sound-btn.muted, .voice-btn.muted {
     background-color: #999; /* Gris claro cuando está desactivado */
+}
+
+/* ... código anterior ... */
+
+/* --- POSICIONES PANTALLA INTRO (intro.png) --- */
+
+/* 1. Botón CONADIS (Barra Superior) */
+.option-start-conadis {
+    top: 29.6%;
+    left: 7%;
+    width: 85%;
+    height: 10.5%;
+}
+
+/* 2. Botón RED ALIVIA (Segunda Barra) */
+.option-start-alivia {
+    top: 41%;
+    left: 7%;
+    width: 85%;
+    height: 10.5%;
+}
+
+
+
+/* 4. Botón INCLÚYEME (Cuarta Barra) */
+.option-start-incluyeme {
+    top: 51.8%;
+    left: 7%;
+    width: 85%;
+    height: 10.5%;
+}
+
+/* 5. Botón REGISTRO NACIONAL (Quinta Barra) */
+.option-start-registro {
+    top: 62.5%;
+    left: 7%;
+    width: 85%;
+    height: 10.5%;
+}
+
+/* --- POSICIONES: RED ALIVIA (red_alivia.png) ACTUALIZADO --- */
+
+/* 1. Botón Ubícanos (Icono Azul) */
+.btn-ra-ubicanos { 
+    top: 33.5%; 
+    left: 8%; 
+    width: 84%; 
+    height: 10%; 
+}
+
+/* 2. Botón Niveles de Atención (Icono Foco Amarillo) */
+.btn-ra-niveles { 
+    top: 45.5%; 
+    left: 8%; 
+    width: 84%; 
+    height: 10%; 
+}
+
+/* 3. Botón Ejes Temáticos (Icono Gráfico) */
+.btn-ra-ejes { 
+    top: 57.9%; 
+    left: 8%; 
+    width: 84%; 
+    height: 10%; 
+}
+
+/* 4. Botón Canales de Atención (Icono WhatsApp/Verde) */
+.btn-ra-canales { 
+    top: 70.5%; 
+    left: 8%; 
+    width: 84%; 
+    height: 10%; 
+}
+/* --- POSICIONES: EJES TEMÁTICOS (ejes_tematicos.png) ACTUALIZADO --- */
+/* 5 Botones: Salud, Educación, Empleo, Protección, Justicia */
+
+/* 1. Salud (Botón Rojo con Cruz) */
+.link-salud { 
+    top: 38%; left: 5%; width: 90%; height: 10%; 
+}
+
+/* 2. Educación (Botón Rojo con Libro) */
+.link-educacion { 
+    top: 49%; left: 5%; width: 90%; height: 10%; 
+}
+
+/* 3. Empleo (Botón Rojo con Maletín) */
+.link-empleo { 
+    top: 60%; left: 5%; width: 90%; height: 10%; 
+}
+
+/* 4. Protección Social (Botón Rojo con Personas) */
+.link-proteccion { 
+    top: 71%; left: 5%; width: 90%; height: 10%; 
+}
+
+/* 5. Acceso a Justicia (Botón Rojo con Balanza) */
+.link-justicia { 
+    top: 82%; left: 5%; width: 90%; height: 10%; 
+}
+
+/* (Eliminada la clase .link-canales) */
+
+/* NUEVO: Botón de Carrusel (Pausa/Play) */
+/* Se ubica encima del botón de voz (90px + 60px + 10px margen = 160px) */
+.carousel-btn {
+    bottom: 160px; 
+    background-color: #333; /* Mismo gris oscuro que el de voz */
+}
+
+/* Estado cuando el carrusel está en PAUSA (Gris claro) */
+.carousel-btn.paused {
+    background-color: #999;
+}
+
+/* Efecto Hover */
+.carousel-btn:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+/* --- POSICIONES: INCLÚYEME SOY CAPAZ --- */
+
+/* Botón "Siguiente" en incluyeme_1.png */
+/* He configurado una zona en la esquina inferior derecha. 
+   Ajusta estos valores si tu diseño tiene la flecha en otro lado. */
+.btn-incluyeme-next {
+    top: 80%;       /* Altura */
+    left: 75%;      /* Posición horizontal */
+    width: 20%;     /* Ancho de la zona activa */
+    height: 15%;    /* Alto de la zona activa */
+    
+    /* Descomenta la siguiente línea temporalmente para ver dónde está el botón */
+    /* border: 2px solid red; */
+}
+
+/* --- POSICIONES: REGISTRO NACIONAL --- */
+
+/* Botón "Siguiente" genérico para las láminas registro_1 y registro_2 */
+.btn-registro-next {
+    top: 80%;       /* Altura */
+    left: 75%;      /* Derecha */
+    width: 20%;     /* Ancho */
+    height: 15%;    /* Alto */
+    
+    /* border: 2px solid blue;  <-- Descomenta para probar la posición */
 }
