@@ -75,27 +75,16 @@ body {
 
 /* Botón Izquierdo: Programas Sociales */
 .option-proteccion-programas { 
-    top: 53%; 
+    top: 56%; 
     left: 6%; 
-    width: 35%; 
-    height: 11%; 
+    width: 40%; 
+    height: 12%; 
 }
 
 /* Botón Derecho Superior: Bono de Vivienda */
-.option-proteccion-bono { 
-    top: 76%; 
-    left: 53%; 
-    width: 41%; 
-    height: 11%; 
-}
 
 /* Botón Derecho Inferior: Identidad RENIEC */
-.option-proteccion-reniec { 
-    top: 89%; 
-    left: 55%; 
-    width: 39%; 
-    height: 9%; 
-}
+
 
 /* --- POSICIONES: ACCESO A LA JUSTICIA (image_5.png) --- */
 
@@ -104,16 +93,10 @@ body {
     top: 66%; 
     left: 5%; 
     width: 42%; 
-    height: 11%; 
+    height: 12%; 
 }
 
 /* Botón Amarillo Inferior: Carnet del CONADIS */
-.option-justicia-carnet { 
-    top: 79%; 
-    left: 5%; 
-    width: 42%; 
-    height: 11%; 
-}
 
 
 /* --- VENTANA FLOTANTE (MODAL) --- */
